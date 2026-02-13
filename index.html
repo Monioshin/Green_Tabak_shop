@@ -3,52 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Green Shop</title>
+    <title>THE VAULT</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div class="top-nav">
         <div class="menu-btn">☰</div>
         <div class="cart-badge" onclick="showCart()">
-            🛒 <span id="cart-count">0</span>
+            CART <span id="cart-count">0</span>
         </div>
     </div>
 
     <div id="home-screen" class="screen active">
         <div class="hero-section">
-            <h1 class="main-title">Green Shop</h1>
-            <p class="subtitle">Магазин табака и вейпов</p>
-            <button class="info-pill" onclick="showScreen('info-screen')">
-                <span class="icon-circle">i</span> О работе и правила
-            </button>
+            <h1 class="main-title">THE VAULT</h1>
+            <p class="subtitle">PRIVATE SELECTION</p>
+        </div>
+
+        <div class="id-badge">
+            <div class="id-number" id="user-id-display">ID: --- / S.E.C.</div>
+            <div class="id-label">Special Elite Club Member</div>
         </div>
 
         <div class="categories-grid">
             <div class="cat-card" onclick="showCategory('Жевательный табак')">
-                <div class="cat-icon">🌿</div>
-                <div class="cat-name">Жевательный<br>табак</div>
+                <div class="cat-icon">🍃</div>
+                <div class="cat-name">Tobacco</div>
             </div>
             <div class="cat-card" onclick="showCategory('Одноразки')">
-                <div class="cat-icon">☁️</div>
-                <div class="cat-name">Одноразки</div>
+                <div class="cat-icon">💨</div>
+                <div class="cat-name">Disposables</div>
             </div>
             <div class="cat-card" onclick="showCategory('Жидкости')">
-                <div class="cat-icon">💧</div>
-                <div class="cat-name">Жидкости</div>
+                <div class="cat-icon">🧪</div>
+                <div class="cat-name">Liquids</div>
             </div>
             <div class="cat-card" onclick="showCategory('Вейпы')">
-                <div class="cat-icon">🔋</div>
-                <div class="cat-name">Вейпы</div>
+                <div class="cat-icon">🔌</div>
+                <div class="cat-name">Devices</div>
             </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="info-pill" onclick="showScreen('info-screen')">CLUB INFO</button>
         </div>
     </div>
 
     <div id="category-screen" class="screen">
         <div class="nav-header">
             <button class="back-circle" onclick="showScreen('home-screen')">←</button>
-            <h2 id="cat-title">Категория</h2>
+            <h2 id="cat-title">CATEGORY</h2>
         </div>
         <div id="items-list" class="items-container"></div>
     </div>
@@ -56,24 +63,22 @@
     <div id="cart-screen" class="screen">
         <div class="nav-header">
             <button class="back-circle" onclick="showScreen('home-screen')">←</button>
-            <h2>Корзина</h2>
+            <h2>YOUR CART</h2>
         </div>
         <div id="cart-items-list" class="items-container"></div>
-        <div id="cart-total-info" style="display:none; padding: 20px; text-align: right; font-weight: bold; font-size: 18px;">
-            Итого: <span id="total-sum">0</span> ₽
-        </div>
-        <div id="cart-empty" class="empty-state" style="text-align: center; margin-top: 50px; color: #888;">Корзина пуста</div>
+        <div id="cart-total-info" class="total-info">TOTAL: <span id="total-sum">0</span> ₽</div>
+        <div id="cart-empty" class="empty-state">Cart is empty</div>
     </div>
 
     <div id="info-screen" class="screen">
         <div class="nav-header">
             <button class="back-circle" onclick="showScreen('home-screen')">←</button>
-            <h2>Правила</h2>
+            <h2>RULES</h2>
         </div>
-        <div class="info-content" style="padding: 10px; line-height: 1.6;">
-            <p>✅ Только 18+</p>
-            <p>🚚 Доставка по городу от 2000₽ бесплатно.</p>
-            <p>💳 Оплата наличными или переводом.</p>
+        <div class="info-content">
+            <p>1. Access is restricted to 18+ members.</p>
+            <p>2. Discreet delivery only.</p>
+            <p>3. Your ID is permanent and linked to your profile.</p>
         </div>
     </div>
 
