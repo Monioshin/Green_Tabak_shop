@@ -1,0 +1,87 @@
+:root {
+    --primary: #2E7D32;
+    --primary-light: #E8F5E9;
+    --white: #FFFFFF;
+    --gray: #F5F7F9;
+    --text-dark: #1A1C1E;
+    --text-mute: #70777F;
+    --shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--white);
+    color: var(--text-dark);
+    margin: 0; padding: 0;
+}
+
+.top-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 20px; background: var(--primary); color: white;
+    position: sticky; top: 0; z-index: 100;
+}
+
+.cart-badge {
+    background: rgba(255,255,255,0.2);
+    padding: 6px 14px; border-radius: 20px; font-weight: bold;
+}
+
+button, .cat-card, .cart-badge {
+    transition: transform 0.1s ease;
+    cursor: pointer;
+}
+button:active, .cat-card:active { transform: scale(0.92); }
+
+.hero-section { text-align: center; padding: 30px 20px; }
+.main-title { font-size: 32px; margin: 0; color: var(--primary); }
+.subtitle { color: var(--text-mute); margin-top: 8px; font-size: 14px; }
+
+.info-pill {
+    background: var(--primary-light); border: none; color: var(--primary);
+    padding: 10px 20px; border-radius: 30px; font-weight: 600;
+    margin-top: 20px; display: inline-flex; align-items: center; gap: 8px;
+}
+
+.icon-circle {
+    background: var(--primary); color: white; width: 18px; height: 18px;
+    border-radius: 50%; font-size: 12px; display: flex; align-items: center; justify-content: center;
+}
+
+.categories-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 20px;
+}
+
+.cat-card {
+    background: var(--primary-light); padding: 25px 10px; border-radius: 24px;
+    text-align: center; box-shadow: var(--shadow);
+}
+
+.cat-icon { font-size: 36px; margin-bottom: 10px; }
+.cat-name { font-weight: 700; color: var(--primary); font-size: 14px; }
+
+.screen { display: none; padding: 15px; min-height: 100vh; }
+.screen.active { display: block; }
+
+.nav-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+.back-circle {
+    width: 40px; height: 40px; border-radius: 50%; border: none;
+    background: var(--gray); font-size: 18px; display: flex; align-items: center; justify-content: center;
+}
+
+.product-item {
+    background: var(--white); border-radius: 20px; padding: 16px;
+    margin-bottom: 12px; display: flex; justify-content: space-between;
+    align-items: center; border: 1px solid var(--gray);
+}
+
+.buy-btn {
+    background: var(--primary); color: white; border: none;
+    padding: 10px 16px; border-radius: 12px; font-weight: bold;
+}
+
+.remove-btn {
+    background: #FFEBEE; color: #D32F2F; border: none;
+    padding: 8px 12px; border-radius: 10px; font-weight: 600;
+}
