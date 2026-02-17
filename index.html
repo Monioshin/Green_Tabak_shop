@@ -2,8 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Quest RPG</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gold Slots</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
@@ -11,44 +11,34 @@
     <div id="app">
         <header>
             <div class="user-info">
-                <span id="username">Герой</span>
-                <span id="level">Ур. 1</span>
+                <span id="username">Загрузка...</span>: 
+                <span id="balance">0</span> 💰
             </div>
-            <div class="exp-container">
-                <div class="exp-bar">
-                    <div id="exp-fill" class="exp-fill" style="width: 10%;"></div>
-                </div>
-                <div class="exp-text">EXP: <span id="exp-value">0</span> / 100</div>
-            </div>
+            <button id="leaderboard-btn">🏆 ТОП</button>
         </header>
 
-        <main>
-            <div id="character-visual">
-                <div class="placeholder-hero">🛡️</div>
+        <div class="main-container">
+            <div class="slot-machine">
+                <div class="reels">
+                    <div class="reel" id="reel1">❓</div>
+                    <div class="reel" id="reel2">❓</div>
+                    <div class="reel" id="reel3">❓</div>
+                </div>
+                <div class="bet-panel">
+                    <p>Ставка: 100 золота</p>
+                    <button id="spin-button">КРУТИТЬ</button>
+                </div>
             </div>
+        </div>
 
-            <div id="task-list">
-                <h3>Ваши квесты</h3>
-                <div class="empty-msg">Задач пока нет. Добавьте первую!</div>
-            </div>
-        </main>
-
-        <footer>
-            <button id="add-task-btn" onclick="openModal()">Новое задание +</button>
-        </footer>
-    </div>
-
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <h3>Новый квест</h3>
-            <input type="text" id="task-input" placeholder="Название задачи...">
-            <div class="modal-buttons">
-                <button onclick="closeModal()">Отмена</button>
-                <button onclick="createTask()" class="primary">Добавить</button>
+        <div id="leaderboard-modal" class="modal">
+            <div class="modal-content">
+                <h2>🏆 Лидеры Капиталисты</h2>
+                <div id="leader-list"></div>
+                <button class="close-btn" id="close-modal">Закрыть</button>
             </div>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
