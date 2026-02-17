@@ -2,83 +2,50 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>THE VAULT</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Quest RPG</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
+    <div id="app">
+        <header>
+            <div class="user-info">
+                <span id="username">Герой</span>
+                <span id="level">Ур. 1</span>
+            </div>
+            <div class="exp-container">
+                <div class="exp-bar">
+                    <div id="exp-fill" class="exp-fill" style="width: 10%;"></div>
+                </div>
+                <div class="exp-text">EXP: <span id="exp-value">0</span> / 100</div>
+            </div>
+        </header>
 
-    <div class="top-nav">
-        <div class="menu-btn">☰</div>
-        <div class="cart-badge" onclick="showCart()">
-            CART <span id="cart-count">0</span>
-        </div>
+        <main>
+            <div id="character-visual">
+                <div class="placeholder-hero">🛡️</div>
+            </div>
+
+            <div id="task-list">
+                <h3>Ваши квесты</h3>
+                <div class="empty-msg">Задач пока нет. Добавьте первую!</div>
+            </div>
+        </main>
+
+        <footer>
+            <button id="add-task-btn" onclick="openModal()">Новое задание +</button>
+        </footer>
     </div>
 
-    <div id="home-screen" class="screen active">
-        <div class="hero-section">
-            <h1 class="main-title">THE VAULT</h1>
-            <p class="subtitle">PRIVATE SELECTION</p>
-        </div>
-
-        <div class="id-badge">
-            <div class="id-number" id="user-id-display">ID: --- / S.E.C.</div>
-            <div class="id-label">Special Elite Club Member</div>
-        </div>
-
-        <div class="categories-grid">
-            <div class="cat-card" onclick="showCategory('Жевательный табак')">
-                <div class="cat-icon">🍃</div>
-                <div class="cat-name">Tobacco</div>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h3>Новый квест</h3>
+            <input type="text" id="task-input" placeholder="Название задачи...">
+            <div class="modal-buttons">
+                <button onclick="closeModal()">Отмена</button>
+                <button onclick="createTask()" class="primary">Добавить</button>
             </div>
-            <div class="cat-card" onclick="showCategory('Одноразки')">
-                <div class="cat-icon">💨</div>
-                <div class="cat-name">Disposables</div>
-            </div>
-            <div class="cat-card" onclick="showCategory('Жидкости')">
-                <div class="cat-icon">🧪</div>
-                <div class="cat-name">Liquids</div>
-            </div>
-            <div class="cat-card" onclick="showCategory('Вейпы')">
-                <div class="cat-icon">🔌</div>
-                <div class="cat-name">Devices</div>
-            </div>
-        </div>
-
-        <div style="text-align: center; margin-top: 30px;">
-            <button class="info-pill" onclick="showScreen('info-screen')">CLUB INFO</button>
-        </div>
-    </div>
-
-    <div id="category-screen" class="screen">
-        <div class="nav-header">
-            <button class="back-circle" onclick="showScreen('home-screen')">←</button>
-            <h2 id="cat-title">CATEGORY</h2>
-        </div>
-        <div id="items-list" class="items-container"></div>
-    </div>
-
-    <div id="cart-screen" class="screen">
-        <div class="nav-header">
-            <button class="back-circle" onclick="showScreen('home-screen')">←</button>
-            <h2>YOUR CART</h2>
-        </div>
-        <div id="cart-items-list" class="items-container"></div>
-        <div id="cart-total-info" class="total-info">TOTAL: <span id="total-sum">0</span> ₽</div>
-        <div id="cart-empty" class="empty-state">Cart is empty</div>
-    </div>
-
-    <div id="info-screen" class="screen">
-        <div class="nav-header">
-            <button class="back-circle" onclick="showScreen('home-screen')">←</button>
-            <h2>RULES</h2>
-        </div>
-        <div class="info-content">
-            <p>1. Access is restricted to 18+ members.</p>
-            <p>2. Discreet delivery only.</p>
-            <p>3. Your ID is permanent and linked to your profile.</p>
         </div>
     </div>
 

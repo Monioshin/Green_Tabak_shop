@@ -1,62 +1,134 @@
 :root {
-    --bg: #000000;
-    --glass: rgba(255, 255, 255, 0.05);
-    --border: rgba(255, 255, 255, 0.1);
-    --text: #ffffff;
+    --bg-color: #0f0f1a;
+    --card-bg: #1e1e2e;
+    --accent: #ff4757;
+    --text: #f1f2f6;
+    --exp-color: #2ed573;
 }
 
 body {
-    background: var(--bg); color: var(--text);
-    font-family: 'Inter', sans-serif; margin: 0; padding: 0;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text);
+    overflow: hidden; /* Mini Apps лучше смотрятся без лишнего скролла */
 }
 
-.top-nav {
-    display: flex; justify-content: space-between; padding: 20px;
-    background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
-    position: sticky; top: 0; z-index: 100;
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 15px;
+    box-sizing: border-box;
 }
 
-.cart-badge {
-    background: var(--glass); border: 1px solid var(--border);
-    padding: 8px 15px; border-radius: 8px; font-size: 11px; font-weight: 700;
+header {
+    background: var(--card-bg);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-.hero-section { text-align: center; padding: 40px 20px 10px; }
-.main-title { font-size: 34px; font-weight: 300; letter-spacing: 10px; margin: 0; }
-.subtitle { font-size: 9px; letter-spacing: 5px; color: #555; margin-top: 5px; }
-
-.id-badge {
-    background: linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.01));
-    border: 1px solid var(--border); border-radius: 12px;
-    padding: 25px; margin: 20px; text-align: center;
-}
-.id-number { font-size: 22px; font-weight: 700; letter-spacing: 4px; }
-.id-label { font-size: 9px; color: #666; text-transform: uppercase; margin-top: 5px; }
-
-.categories-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 20px; }
-.cat-card {
-    background: var(--glass); border: 1px solid var(--border);
-    padding: 30px 10px; border-radius: 12px; text-align: center;
-}
-.cat-name { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px;}
-
-.product-item {
-    background: var(--glass); border: 1px solid var(--border);
-    padding: 18px; margin: 10px 20px; border-radius: 12px;
-    display: flex; justify-content: space-between; align-items: center;
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
-.buy-btn {
-    background: white; color: black; border: none; font-weight: 800;
-    padding: 10px 20px; border-radius: 6px; font-size: 11px;
+.exp-bar {
+    background: #2f3542;
+    height: 12px;
+    border-radius: 6px;
+    overflow: hidden;
 }
 
-.screen { display: none; min-height: 100vh; }
-.screen.active { display: block; animation: fadeIn 0.3s; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.exp-fill {
+    background: var(--exp-color);
+    height: 100%;
+    transition: width 0.3s ease;
+}
 
-.nav-header { display: flex; align-items: center; gap: 15px; padding: 20px; }
-.back-circle { background: var(--glass); border: 1px solid var(--border); color: white; border-radius: 50%; width: 40px; height: 40px; }
-.total-info { padding: 20px; text-align: right; font-size: 18px; font-weight: 300; }
-.empty-state { text-align: center; padding: 50px; color: #444; text-transform: uppercase; }
-.info-pill { background: none; border: 1px solid var(--border); color: #555; padding: 10px 20px; border-radius: 20px; font-size: 10px; }
+.exp-text {
+    font-size: 10px;
+    text-align: right;
+    margin-top: 5px;
+    color: #a4b0be;
+}
+
+main {
+    flex-grow: 1;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.placeholder-hero {
+    font-size: 80px;
+    margin: 20px 0;
+    filter: drop-shadow(0 0 10px var(--accent));
+}
+
+#task-list {
+    width: 100%;
+    text-align: left;
+}
+
+.empty-msg {
+    color: #747d8c;
+    text-align: center;
+    margin-top: 20px;
+}
+
+footer {
+    padding-bottom: env(safe-area-inset-bottom); /* Поддержка челок iPhone */
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    background: var(--accent);
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 15px;
+    width: 80%;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 15px 0;
+    background: #2f3542;
+    border: 1px solid #57606f;
+    color: white;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.primary { background: var(--exp-color); }
