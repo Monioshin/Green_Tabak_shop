@@ -1,7 +1,8 @@
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-const API_BASE_URL = "http://твой-ip-сервера:8080"; // Или адрес через ngrok
+const API_BASE_URL = "https://your-ngrok-url.ngrok-free.app"; // ВСТАВЬ СЮДА СВОЙ URL
+
 const userId = tg.initDataUnsafe.user?.id || 0;
 const userName = tg.initDataUnsafe.user?.first_name || "Игрок";
 
@@ -17,16 +18,17 @@ const symbols = [
     { img: '7️⃣', weight: 1, x: 777 }
 ];
 
-// Инициализация данных
 async function init() {
     try {
-        const response = await fetch(`${API_BASE_URL}/api/get_balance?user_id=${userId}`);
+        const response = await fetch(`${API_BASE_URL}/api/get_balance?user_id=${userId}&username=${encodeURIComponent(userName)}`);
         const data = await response.json();
         balance = data.balance;
-        document.getElementById('username').textContent = data.username;
+        document.getElementById('username').textContent = userName;
         updateUI();
     } catch (e) {
-        console.error("Ошибка сети", e);
+        console.error("Ошибка инициализации", e);
+        balance = 1000;
+        updateUI();
     }
 }
 
@@ -41,65 +43,77 @@ function getRandomSymbol() {
 
 async function spin() {
     if (balance < bet) {
-        tg.showAlert("Недостаточно золота для ставки!");
+        tg.showAlert("Недостаточно золота!");
         return;
     }
 
     balance -= bet;
     updateUI();
 
-    // Эффект кручения (быстрая смена значков)
-    const spinEffect = setInterval(() => {
-        document.getElementById('reel1').textContent = symbols[Math.floor(Math.random()*6)].img;
-        document.getElementById('reel2').textContent = symbols[Math.floor(Math.random()*6)].img;
-        document.getElementById('reel3').textContent = symbols[Math.floor(Math.random()*6)].img;
-    }, 100);
-
-    setTimeout(async () => {
-        clearInterval(spinEffect);
-        const results = [getRandomSymbol(), getRandomSymbol(), getRandomSymbol()];
-        
-        document.getElementById('reel1').textContent = results[0].img;
-        document.getElementById('reel2').textContent = results[1].img;
-        document.getElementById('reel3').textContent = results[2].img;
-
-        if (results[0].img === results[1].img && results[1].img === results[2].img) {
-            const win = bet * results[0].x;
-            balance += win;
-            tg.showPopup({ title: "ПОБЕДА!", message: `Вы выиграли ${win} золота!` });
+    const reelEls = [document.getElementById('reel1'), document.getElementById('reel2'), document.getElementById('reel3')];
+    
+    let spinCount = 0;
+    const interval = setInterval(() => {
+        reelEls.forEach(el => el.textContent = symbols[Math.floor(Math.random()*symbols.length)].img);
+        spinCount++;
+        if(spinCount > 15) {
+            clearInterval(interval);
+            const results = [getRandomSymbol(), getRandomSymbol(), getRandomSymbol()];
+            reelEls.forEach((el, i) => el.textContent = results[i].img);
+            
+            if (results[0].img === results[1].img && results[1].img === results[2].img) {
+                const win = bet * results[0].x;
+                balance += win;
+                tg.HapticFeedback.notificationOccurred('success');
+                tg.showPopup({ title: "ПОБЕДА!", message: `Вы выиграли ${win} золота!` });
+            }
+            updateUI();
+            saveBalance();
         }
+    }, 100);
+}
 
-        updateUI();
-        // Сохраняем в БД
-        await fetch(`${API_BASE_URL}/api/update_balance`, {
-            method: 'POST',
-            body: JSON.stringify({ user_id: userId, balance: balance })
-        });
-    }, 1000);
+async function saveBalance() {
+    await fetch(`${API_BASE_URL}/api/update_balance`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: userId, balance: balance })
+    });
 }
 
 function updateUI() {
     document.getElementById('balance').textContent = balance;
 }
 
-// Лидерборд
+// РАБОТА С ТОП-ЛИСТОМ
 document.getElementById('leaderboard-btn').onclick = async () => {
-    const resp = await fetch(`${API_BASE_URL}/api/leaderboard`);
-    const leaders = await resp.json();
+    const modal = document.getElementById('leaderboard-modal');
     const list = document.getElementById('leader-list');
-    list.innerHTML = leaders.map((u, i) => `
-        <div class="leader-item">
-            <span>${i+1}. ${u.username}</span>
-            <span>${u.balance} 💰</span>
-        </div>
-    `).join('');
-    document.getElementById('leaderboard-modal').style.display = 'block';
+    list.innerHTML = "Загрузка...";
+    modal.style.display = 'block';
+
+    try {
+        const resp = await fetch(`${API_BASE_URL}/api/leaderboard`);
+        const leaders = await resp.json();
+        
+        list.innerHTML = leaders.map((u, i) => {
+            let medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
+            return `
+                <div class="leader-item">
+                    <span style="text-align: left">${medal} ${u.username}</span>
+                    <span style="font-weight: bold; color: #f8b500">${u.balance} 💰</span>
+                </div>
+            `;
+        }).join('');
+    } catch (e) {
+        list.innerHTML = "Ошибка загрузки данных.";
+    }
 };
 
 document.getElementById('close-modal').onclick = () => {
     document.getElementById('leaderboard-modal').style.display = 'none';
 };
 
-document.getElementById('spin-button').addEventListener('click', spin);
+document.getElementById('spin-button').onclick = spin;
 
 init();

@@ -5,94 +5,66 @@
 }
 
 body {
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+    background: linear-gradient(to bottom, #0f0c29, #24243e);
     color: white;
-    user-select: none;
-    touch-action: manipulation;
+    overflow: hidden;
 }
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    background: rgba(0, 0, 0, 0.3);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px; background: rgba(0,0,0,0.4);
 }
 
-.user-info { font-weight: bold; font-size: 1.1em; }
-
 #leaderboard-btn {
-    background: #f8b500;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 10px;
-    font-weight: bold;
+    background: #f8b500; border: none; padding: 8px 15px;
+    border-radius: 10px; font-weight: bold; cursor: pointer;
 }
 
 .main-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 70vh;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; height: 75vh;
 }
 
-.reels {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
-}
+.reels { display: flex; gap: 15px; margin-bottom: 40px; }
 
 .reel {
-    width: 90px;
-    height: 120px;
-    background: #fff;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 0 20px var(--accent);
+    width: 90px; height: 120px; background: #fff;
+    border-radius: 15px; display: flex; align-items: center;
+    justify-content: center; font-size: 3.5rem;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.5), 0 0 25px var(--accent);
     color: #000;
 }
 
-.bet-panel #spin-button {
-    width: 200px;
-    height: 60px;
-    font-size: 1.5rem;
-    background: var(--accent);
-    color: white;
-    border: none;
-    border-radius: 30px;
-    box-shadow: 0 6px #9a1f33;
-    cursor: pointer;
+#spin-button {
+    width: 220px; height: 70px; font-size: 1.6rem;
+    background: var(--accent); color: white; border: none;
+    border-radius: 35px; box-shadow: 0 6px #6a1322; cursor: pointer;
 }
 
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 10;
+    display: none; position: fixed; z-index: 100;
     left: 0; top: 0; width: 100%; height: 100%;
     background: rgba(0,0,0,0.9);
 }
 
 .modal-content {
-    background: var(--panel);
-    margin: 15% auto;
-    padding: 20px;
-    width: 85%;
-    border-radius: 20px;
-    text-align: center;
+    background: var(--panel); margin: 10% auto; padding: 20px;
+    width: 80%; border-radius: 20px; border: 2px solid var(--accent);
+}
+
+.leader-list {
+    margin: 20px 0; max-height: 50vh; overflow-y: auto;
 }
 
 .leader-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid #24243e;
+    display: flex; justify-content: space-between;
+    padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 1.1rem;
 }
 
-.close-btn { margin-top: 20px; padding: 10px 20px; border-radius: 10px; border: none; }
+.close-btn {
+    width: 100%; padding: 10px; border-radius: 10px;
+    border: none; background: #555; color: white; cursor: pointer;
+}

@@ -11,13 +11,13 @@
     <div id="app">
         <header>
             <div class="user-info">
-                <span id="username">Загрузка...</span>: 
+                <span id="username">...</span>: 
                 <span id="balance">0</span> 💰
             </div>
             <button id="leaderboard-btn">🏆 ТОП</button>
         </header>
 
-        <div class="main-container">
+        <main class="main-container">
             <div class="slot-machine">
                 <div class="reels">
                     <div class="reel" id="reel1">❓</div>
@@ -29,13 +29,14 @@
                     <button id="spin-button">КРУТИТЬ</button>
                 </div>
             </div>
-        </div>
+        </main>
 
         <div id="leaderboard-modal" class="modal">
             <div class="modal-content">
-                <h2>🏆 Лидеры Капиталисты</h2>
-                <div id="leader-list"></div>
-                <button class="close-btn" id="close-modal">Закрыть</button>
+                <h2>🏆 ЛУЧШИЕ ИГРОКИ</h2>
+                <div id="leader-list" class="leader-list">
+                    </div>
+                <button class="close-btn" id="close-modal">ЗАКРЫТЬ</button>
             </div>
         </div>
     </div>
